@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tender App</title>
-    <script src="https://cdn.jsdelivr.net/npm/snapdom/dist/snapdom.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; }
         #auth, #tender-list, #tender-detail { margin: 20px; }
@@ -15,7 +14,6 @@
 <body>
     <div id="app"></div>
     <script>
-        const app = SnapDOM.create('#app');
         let isLoggedIn = true; // Assume user is logged in
         let tenders = [
             { id: 1, title: "Tender 1", description: "Description of Tender 1" },
@@ -23,18 +21,17 @@
         ];
 
         function render() {
-            app.render(() => {
-                if (!isLoggedIn) {
-                    return `
-                        <div id="auth">
-                            <h2>Login with OAuth</h2>
-                            <button onclick="loginWithOAuth()">Login</button>
-                        </div>
-                    `;
-                } else {
-                    return tenderList();
-                }
-            });
+            const app = document.getElementById('app');
+            if (!isLoggedIn) {
+                app.innerHTML = `
+                    <div id="auth">
+                        <h2>Login with OAuth</h2>
+                        <button onclick="loginWithOAuth()">Login</button>
+                    </div>
+                `;
+            } else {
+                app.innerHTML = tenderList();
+            }
         }
 
         function tenderList() {
@@ -61,7 +58,7 @@
 
         function viewTender(tenderId) {
             const tender = tenders.find(t => t.id === tenderId);
-            app.render(() => tenderDetail(tender));
+            document.getElementById('app').innerHTML = tenderDetail(tender);
         }
 
         function tenderDetail(tender) {
@@ -91,4 +88,4 @@
         render();
     </script>
 </body>
-</html>
+</html
