@@ -1,3 +1,6 @@
 
 svelte-app
 others
+
+# Local Netlify folder
+.netlify
