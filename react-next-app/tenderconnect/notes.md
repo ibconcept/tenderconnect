@@ -16,3 +16,42 @@ export default async function handler(req, res) {
     }
 } -->
 Submit data from your page.js to the API route.
+
+
+
+
+
+
+
+
+
+
+<!-- 
+Disable Webpack Cache Warnings:
+Add a webpack configuration to your next.config.js file:
+
+javascript
+Copy code
+// next.config.js
+module.exports = {
+  webpack: (config, { isServer }) => {
+    config.cache = {
+      type: 'filesystem',
+      buildDependencies: {
+        config: [__filename],
+      },
+      cacheDirectory: isServer
+        ? ".next/cache/server"
+        : ".next/cache/client",
+      managedPaths: [/node_modules/],
+    };
+    return config;
+  },
+};
+This will optimize the cache and reduce the warning logs for non-relevant platform-specific modules. -->
+
+
+
+
+
+

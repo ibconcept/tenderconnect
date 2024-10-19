@@ -35,10 +35,12 @@ button {
     border-radius: 5px;
     padding: 10px 15px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #ff9933; /* Orange on hover */
+    color: white; /* Change text color to white on hover */
 }
 
 .tender-item {
@@ -55,3 +57,11 @@ button:hover {
     background-color: #e6f9e6; /* Light green on hover */
 }
 
+.tender-item::after {
+    content: "New!";
+    color: #ff9933; /* Orange text for minimal highlight */
+    font-size: 0.8em;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
