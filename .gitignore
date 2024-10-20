@@ -1,6 +1,9 @@
 
-svelte-app
 others
+
+
+node-modules
+package.json
 
 # Local Netlify folder
 .netlify

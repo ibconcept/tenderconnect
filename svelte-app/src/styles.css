@@ -1,0 +1,53 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-bottom: 5px solid rgb(244, 155, 60); /* Add orange accent to header */
+}
+
+#auth, #tender-list, #tender-detail, #post-tender-form {
+    margin: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid rgb(244, 155, 60); /* Add orange accent to borders */
+}
+
+button {
+    margin: 5px;
+    background-color: #4CAF50;          
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(244, 155, 60); /* Add orange border */
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+    border-color: rgb(244, 155, 60); /* Keep orange accent on hover */
+}
+
+.tender-item {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    display: inline;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border-bottom: 3px solid rgb(244, 155, 60); /* Add orange accent to tender items */
+}
+
+img {
+    width: 5vw;
+    border: 2px solid rgb(244, 155, 60); /* Add orange border around images */
+}
