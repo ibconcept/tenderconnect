@@ -1,39 +1,129 @@
+:root {
+    --green: #4CAF50;
+    --dark-green: #45a049;
+    --orange: rgb(244, 155, 60);
+    --white: #fff;
+}
+
 body {
     font-family: "Poppins", sans-serif;
-    background-color: #f4f4f9;
+    background-color: var(--white);
     color: #333;
 }
 
 header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
-    background-color: #4CAF50;
-    color: white;
-    border-bottom: 5px solid rgb(244, 155, 60); /* Add orange accent to header */
+    background-color: var(--green);
+    color: var(--white);
+    border-bottom: 5px solid var(--orange); /* Orange accent */
 }
 
+header img {
+    width: 50px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar button {
+    margin-left: 10px;
+}
+
+.logo-container {
+    flex: 1;
+}
+
+.site-info {
+    text-align: center;
+    flex: 2;
+}
+
+.hamburger {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+
+.menu {
+    position: absolute;
+    right: 0;
+    background-color: var(--white);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin-right: 20px;
+    z-index: 1000;
+}
+
+.menu li {
+    color: #45a049;
+    padding: 1rem;
+    border-bottom: 5px solid #45a049;
+}
+
+.menu li button {
+    background-color: #45a049;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+}
+
+.menu li:hover {
+    background-color: #f0f0f0;
+}
+
+.cta {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.cta button {
+    padding: 1rem 2rem;
+    background-color: var(--green); /* Button color */
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cta button:hover {
+    background-color: var(--dark-green);
+}
+
+/* Tender Items */
 #auth, #tender-list, #tender-detail, #post-tender-form {
     margin: 20px;
     padding: 15px;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid rgb(244, 155, 60); /* Add orange accent to borders */
+    border-left: 5px solid var(--orange);
 }
 
 button {
     margin: 5px;
-    background-color: #4CAF50;          
-    color: rgb(0, 0, 0);
-    border: 2px solid rgb(244, 155, 60); /* Add orange border */
+    background-color: var(--green);
+    color: var(--white);
+    border: 2px solid var(--orange);
     border-radius: 5px;
     padding: 10px 15px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
-    border-color: rgb(244, 155, 60); /* Keep orange accent on hover */
+    background-color: var(--dark-green);
+    border-color: var(--orange);
 }
 
 .tender-item {
@@ -41,13 +131,22 @@ button:hover {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 5px;
-    display: inline;
+    display: inline-block;
     border-radius: 5px;
     background-color: #f9f9f9;
-    border-bottom: 3px solid rgb(244, 155, 60); /* Add orange accent to tender items */
+    border-bottom: 3px solid var(--orange);
 }
 
 img {
     width: 5vw;
-    border: 2px solid rgb(244, 155, 60); /* Add orange border around images */
+}
+
+textarea {
+    width: 80vw;
+    min-height: 150px;
+    border: 2px solid var(--orange);
+    padding: 10px;
+    resize: vertical;
+    display: block;
+    margin-bottom: 20px;
 }

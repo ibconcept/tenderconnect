@@ -7,13 +7,21 @@
     let tenders = [];
     let selectedTender = null;
     let showPostTenderForm = false;
+    
+    // Declare variables for the tender form
     let newTenderTitle = "";
     let newTenderDescription = "";
     let newTenderImage = null;
-    let newTenderInstitution = "";
+    let newTenderInstitution = ""; // This variable was missing
     let newTenderOpenDate = "";
     let newTenderCloseDate = "";
     let newTenderContactPerson = "";
+    let newTenderCompanyRegCert = ""; // New input for company registration certificate
+    let newTenderKraPin = ""; // New input for KRA PIN
+    let newTenderIdCard = ""; // New input for ID card
+    let newTenderPosition = ""; // New input for person's position
+    let newTenderTerms = ""; // New input for tender agreement terms
+    let showMenu = false; // To toggle hamburger menu
 
     // Load tenders from Local Storage
     function loadTenders() {
@@ -45,7 +53,12 @@
             institution: newTenderInstitution,
             openDate: newTenderOpenDate,
             closeDate: newTenderCloseDate,
-            contactPerson: newTenderContactPerson
+            contactPerson: newTenderContactPerson,
+            companyRegCert: newTenderCompanyRegCert, // New input for company registration certificate
+            kraPin: newTenderKraPin, // New input for KRA PIN
+            idCard: newTenderIdCard, // New input for ID card
+            position: newTenderPosition, // New input for person's position
+            terms: newTenderTerms // New input for tender agreement terms
         };
 
         // Add the new tender to the existing array
@@ -68,18 +81,47 @@
         newTenderOpenDate = "";
         newTenderCloseDate = "";
         newTenderContactPerson = "";
+        newTenderCompanyRegCert = ""; // Reset new input
+        newTenderKraPin = ""; // Reset new input
+        newTenderIdCard = ""; // Reset new input
+        newTenderPosition = ""; // Reset new input
+        newTenderTerms = ""; // Reset new input
     }
 
     // Handle file input change
     function handleImageUpload(event) {
         newTenderImage = event.target.files[0];
     }
+
+    // Toggle hamburger menu visibility
+    function toggleMenu() {
+        showMenu = !showMenu;
+    }
 </script>
 
 <header>
-    <h1>Tender Portal</h1>
-    <p>Your gateway to opportunities for schools, hospitals, and community projects.</p>
-    <img src="../logo.PNG" alt="Tender Portal Logo" />
+    <div class="logo-container">
+        <img src="../logo.PNG" alt="Tender Portal Logo" />
+    </div>
+    <div class="site-info">
+        <h1>Tender Portal</h1>
+        <p>Your gateway to opportunities for schools, hospitals, and community projects.</p>
+    </div>
+    <nav>
+        <div class="hamburger" on:click={toggleMenu}>
+            ☰
+        </div>
+        {#if showMenu}
+            <ul class="menu">
+                <li>My Profile</li>
+                <li>My Tenders</li>
+                <li>My Suppliers</li>
+                <li>Tender Categories</li>
+                <li><button on:click={() => showPostTenderForm = true}>List My Tenders</button></li>
+                <li><button on:click={() => showPostTenderForm = true}>Repost Tender</button></li>
+            </ul>
+        {/if}
+    </nav>
 </header>
 
 {#if !isLoggedIn}
@@ -91,13 +133,39 @@
     <div id="post-tender-form">
         <h3>Post a New Tender</h3>
         <form on:submit={submitTender}>
-            <input type="text" bind:value={newTenderInstitution} placeholder="Institution Name" required />
-            <input type="text" bind:value={newTenderTitle} placeholder="Tender Title" required />
-            <textarea bind:value={newTenderDescription} placeholder="Tender Description" required></textarea>
-            <input type="date" bind:value={newTenderOpenDate} placeholder="Open Date" required />
-            <input type="date" bind:value={newTenderCloseDate} placeholder="Close Date" required />
-            <input type="text" bind:value={newTenderContactPerson} placeholder="Contact Person" required />
-            <input type="file" accept="image/*" on:change={handleImageUpload} />
+            <label for="institution">Institution Name</label>
+            <input type="text" id="institution" bind:value={newTenderInstitution} required />
+            
+            <label for="title">Tender Title</label>
+            <input type="text" id="title" bind:value={newTenderTitle} required />
+            
+            <label for="description">Tender Description</label>
+            <textarea id="description" bind:value={newTenderDescription} required></textarea>
+
+            <label for="openDate">Opening Date</label>
+            <input type="date" id="openDate" bind:value={newTenderOpenDate} required />
+            
+            <label for="closeDate">Closing Date</label>
+            <input type="date" id="closeDate" bind:value={newTenderCloseDate} required />
+            
+            <label for="contactPerson">Contact Person</label>
+            <input type="text" id="contactPerson" bind:value={newTenderContactPerson} required />
+            
+            <label for="companyRegCert">Company Registration Certificate</label>
+            <input type="file" id="companyRegCert" accept=".pdf,image/jpeg,image/png" bind:value={newTenderCompanyRegCert} required />
+            
+            <label for="kraPin">KRA PIN</label>
+            <input type="text" id="kraPin" bind:value={newTenderKraPin} required />
+            
+            <label for="idCard">Person of Interest ID Card</label>
+            <input type="file" id="idCard" accept=".pdf,image/jpeg,image/png" bind:value={newTenderIdCard} required />
+            
+            <label for="position">Position of the Person</label>
+            <input type="text" id="position" bind:value={newTenderPosition} required />
+            
+            <label for="terms">Tender Contract Agreement Terms</label>
+            <textarea id="terms" bind:value={newTenderTerms} required></textarea>
+            
             <button type="submit">Submit Tender</button>
             <button type="button" on:click={() => showPostTenderForm = false}>Cancel</button>
         </form>
@@ -111,7 +179,7 @@
         <p><strong>Contact Person:</strong> {selectedTender.contactPerson}</p>
         <p>{selectedTender.description}</p>
         {#if selectedTender.image}
-            <img src={selectedTender.image} alt="Tender Image" width="200" />
+            <img src={selectedTender.image} alt={selectedTender.title} width="200" />
         {/if}
         <h3>Apply for Tender</h3>
         <form on:submit={submitQuote}>
@@ -122,104 +190,24 @@
         <button on:click={() => selectedTender = null}>Back to Tenders</button>
     </div>
 {:else}
-    <div id="tender-list">
+    <main>
         <h2>Available Tenders</h2>
-        <button on:click={() => loadTenders()}>Tender Categories</button>
-        <button on:click={() => showPostTenderForm = true}>Post Tender</button>
-
         <div id="tender-items">
             {#each tenders as tender}
-                <button class="tender-item" on:click={() => viewTender(tender.id)}>
+                <div class="tender-item" on:click={() => viewTender(tender.id)}>
                     <h3>{tender.title}</h3>
                     <p>{tender.description}</p>
                     <p><strong>Institution:</strong> {tender.institution}</p>
                     {#if tender.image}
-                        <img src={tender.image} alt="Tender Image" width="100" />
+                        <img src={tender.image} alt={tender.title} width="100" />
                     {/if}
-                </button>
+                </div>
             {/each}
         </div>
-    </div>
+    </main>
 {/if}
 
-<main>
-    <h1>Tender Connect</h1>
-    <ul>
-        {#each tenders2 as tender}
-            <li>
-                <h2>{tender.title}</h2>
-                <p>{tender.description}</p>
-                <p>Open Date: {tender.openDate}</p>
-                <p>Close Date: {tender.closeDate}</p>
-            </li>
-        {/each}
-    </ul>
-    <!-- Other components and HTML can go here -->
-</main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-    // let tenders = [
-    //     {
-    //         id: 1,
-    //         title: "School Renovation",
-    //         description: "Renovation of classrooms and facilities.",
-    //         image: null,
-    //         institution: "Green Valley School",
-    //         openDate: "2024-10-01",
-    //         closeDate: "2024-10-15",
-    //         contactPerson: "Alice Johnson"
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "Hospital Equipment Supply",
-    //         description: "Supply of medical equipment for the new wing.",
-    //         image: null,
-    //         institution: "City Hospital",
-    //         openDate: "2024-10-05",
-    //         closeDate: "2024-10-20",
-    //         contactPerson: "Dr. Mark Lee"
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "Community Center Construction",
-    //         description: "Building a new community center for local events.",
-    //         image: null,
-    //         institution: "Sunny Community Center",
-    //         openDate: "2024-10-10",
-    //         closeDate: "2024-10-25",
-    //         contactPerson: "John Smith"
-    //     }
-    // ] -->
+<!-- Call to Action Button -->
+<div class="cta">
+    <button on:click={() => showPostTenderForm = true}>Post a Tender</button>
+</div>
