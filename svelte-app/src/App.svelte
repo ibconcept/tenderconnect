@@ -103,9 +103,9 @@
     <div class="logo-container">
         <img src="../logo.PNG" alt="Tender Portal Logo" />
     </div>
-    <div class="site-info">
+    <div class="site-info" >
         <h1>Tender Portal</h1>
-        <p>Your gateway to opportunities for schools, hospitals, and community projects.</p>
+        <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
     </div>
     <nav>
         <div class="hamburger" on:click={toggleMenu}>
@@ -117,8 +117,8 @@
                 <li>My Tenders</li>
                 <li>My Suppliers</li>
                 <li>Tender Categories</li>
-                <li><button on:click={() => showPostTenderForm = true}>List My Tenders</button></li>
-                <li><button on:click={() => showPostTenderForm = true}>Repost Tender</button></li>
+                <li><button on:click={() => showPostTenderForm = true}>My List Tenders</button></li>
+                <li><button on:click={() => showPostTenderForm = true}>My Live Tenders</button></li>
             </ul>
         {/if}
     </nav>
@@ -211,3 +211,4 @@
 <div class="cta">
     <button on:click={() => showPostTenderForm = true}>Post a Tender</button>
 </div>
+ 

@@ -9,12 +9,14 @@ body {
     font-family: "Poppins", sans-serif;
     background-color: var(--white);
     color: #333;
+    text-align: center;
 }
 
 header {
     display: flex;
+    border-radius: 30px;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding: 20px;
     background-color: var(--green);
     color: var(--white);
@@ -22,11 +24,16 @@ header {
 }
 
 header img {
-    width: 50px;
+    width: 110px;
 }
 
-header h1 {
-    margin: 0;
+header h1 h2 {
+    margin: 1;
+}
+
+h2 {
+ color: var(--orange);
+    margin: 1;
 }
 
 .navbar {
@@ -48,9 +55,8 @@ header h1 {
 }
 
 .hamburger {
-    cursor: pointer;
     font-size: 1.5rem;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .menu {
@@ -103,9 +109,10 @@ header h1 {
 
 /* Tender Items */
 #auth, #tender-list, #tender-detail, #post-tender-form {
-    margin: 20px;
+    margin: 50px;
     padding: 15px;
     border-radius: 5px;
+    text-align: initial;
     background-color: var(--white);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-left: 5px solid var(--orange);
