@@ -101,7 +101,7 @@
 
 <header>
     <div class="logo-container">
-        <a href="../index.html">
+        <a href="https://ibconcept.github.io/tenderconnect/">
             <img src="../logo.PNG" alt="Tender Portal Logo" />
         </a>
     </div>
