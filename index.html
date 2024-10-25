@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TenderConnect: Streamlining the tendering process for businesses and suppliers.">
+    <title>TenderConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        :root {
+            --green: #4CAF50;
+            --dark-green: #45a049;
+            --orange: rgb(244, 155, 60);
+            --white: #fff;
+            --light-gray: #f4f4f4;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: var(--green);
+            color: var(--white);
+            padding: 20px 0;
+        }
+        nav a {
+            color: var(--white);
+            margin: 0 15px;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background-image: url('hero-image.jpg'); /* Replace with your image */
+            background-size: cover;
+            color: var(--white);
+        }
+        .features, .testimonials, .about, .contact {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .feature-card {
+            padding: 20px;
+            border: 1px solid var(--orange);
+            border-radius: 8px;
+            margin: 20px;
+            transition: transform 0.3s;
+            background: var(--white);
+        }
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 20px 0;
+            text-align: center;
+        }
+        .testimonial {
+            margin: 40px 0;
+            font-style: italic;
+        }
+        .social-icons i {
+            margin: 0 10px;
+            color: var(--white);
+            font-size: 24px;
+        }
+        .about {
+            background: var(--light-gray);
+        }
+        .about img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+        .contact {
+            background: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="brand-logo">TenderConnect</div>
+            <ul class="right">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>TenderConnect</h1>
+        <p>Streamlining the tendering process for businesses and suppliers.</p>
+        <a href="#contact" class="btn">Get Started</a>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Features</h2>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="feature-card">
+                    <h3><i class="fas fa-file-alt"></i> Post Tenders</h3>
+                    <p>List new tenders easily with all necessary details.</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="feature-card">
+                    <h3><i class="fas fa-search"></i> View & Apply</h3>
+                    <p>Browse and submit bids directly through the platform.</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="feature-card">
+                    <h3><i class="fas fa-paperclip"></i> Document Management</h3>
+                    <p>Upload key tender-related documents securely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2>About TenderConnect</h2>
+        <img src="about-image.jpg" alt="About TenderConnect"> <!-- Replace with your image -->
+        <p>TenderConnect is designed to enhance transparency and reduce bureaucracy in the tender management process. Our platform allows institutions to post tenders and suppliers to apply seamlessly, ensuring secure user authentication and document handling.</p>
+        <p>With a robust backend powered by PostgreSQL and Express, TenderConnect ensures fast and reliable service, making tender management easy and efficient for all parties involved.</p>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial">
+            <p>"TenderConnect has revolutionized how we handle tenders!" - User A</p>
+        </div>
+        <div class="testimonial">
+            <p>"A seamless process that saves us time and resources." - User B</p>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or would like to get started, feel free to reach out!</p>
+        <p>Email: <a href="mailto:support@tenderconnect.com">support@tenderconnect.com</a></p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-square"></i></a>
+            <a href="#"><i class="fab fa-twitter-square"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 TenderConnect. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
+
