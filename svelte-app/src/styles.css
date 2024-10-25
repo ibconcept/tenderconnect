@@ -43,6 +43,7 @@ font-size: small; line-height: 1.2;
 .navbar {
     display: flex;
     align-items: center;
+    justify-content: center; 
 }
 
 

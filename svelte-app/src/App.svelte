@@ -101,8 +101,11 @@
 
 <header>
     <div class="logo-container">
-        <img src="../logo.PNG" alt="Tender Portal Logo" />
+        <a href="../index.html">
+            <img src="../logo.PNG" alt="Tender Portal Logo" />
+        </a>
     </div>
+    
     <div class="site-info" >
         <h1>Tender Portal</h1>
         <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
