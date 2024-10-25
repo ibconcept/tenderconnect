@@ -1,4 +1,4 @@
-html, body {
+/* html, body {
 	position: relative;
 	width: 100%;
 	text-align: center;
@@ -61,4 +61,4 @@ button:not(:disabled):active {
 
 button:focus {
 	border-color: #666;
-}
+} */

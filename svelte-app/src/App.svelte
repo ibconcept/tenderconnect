@@ -108,9 +108,10 @@
         <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
     </div>
     <nav>
-        <div class="hamburger" on:click={toggleMenu}>
+        <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
             ☰
-        </div>
+        </button>
+        
         {#if showMenu}
             <ul class="menu">
                 <li>My Profile</li>
