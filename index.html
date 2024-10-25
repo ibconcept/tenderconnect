@@ -69,13 +69,32 @@
             font-size: 24px;
         }
         .about {
+            display: flex;
+         justify-content: center; align-items: center; 
+
             background: var(--light-gray);
         }
         .about img {
             width: 100%;
             max-width: 600px;
-            border-radius: 8px;
+            border-radius: 80px;
+            flex: 1;
+
         }
+
+        .about h2 p {
+
+flex: 2;
+display: inline;
+        }
+.logo {
+
+    width: 50px;
+    display: inline;
+    justify-content: safe;
+}
+
+
         .contact {
             background: var(--white);
         }
@@ -84,8 +103,12 @@
 <body>
     <header>
         <nav class="container">
-            <div class="brand-logo">TenderConnect</div>
+            <div class="brand-logo">
+              
+                TenderConnect</div>
             <ul class="right">
+        <img src="svelte-app/public/logo.PNG" alt=" tender" class="logo">
+
                 <li><a href="#features">Features</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
@@ -125,8 +148,8 @@
     </section>
 
     <section class="about" id="about">
-        <h2>About TenderConnect</h2>
-        <img src="about-image.jpg" alt="About TenderConnect"> <!-- Replace with your image -->
+      
+        <img src="about-image.jpg" alt="About TenderConnect">     <h2 style="display: inline;">About TenderConnect</h2>
         <p>TenderConnect is designed to enhance transparency and reduce bureaucracy in the tender management process. Our platform allows institutions to post tenders and suppliers to apply seamlessly, ensuring secure user authentication and document handling.</p>
         <p>With a robust backend powered by PostgreSQL and Express, TenderConnect ensures fast and reliable service, making tender management easy and efficient for all parties involved.</p>
     </section>
