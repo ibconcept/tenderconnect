@@ -135,7 +135,7 @@
     </div>
 {:else if showPostTenderForm}
     <div id="post-tender-form">
-        <h3>Post a New Tender</h3>
+        <h3>Upload a New Tender</h3>
         <form on:submit={submitTender}>
             <label for="institution">Institution Name</label>
             <input type="text" id="institution" bind:value={newTenderInstitution} required />
