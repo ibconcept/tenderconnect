@@ -14,6 +14,12 @@ body {
 
 }
 
+a{
+    text-decoration: none;
+    
+}
+
+
 header {
     display: inline-flex;
     border-radius: 30px;
@@ -45,13 +51,6 @@ font-size: small; line-height: 1.2;
     align-items: center;
     justify-content: center; 
 }
-
-
-
-/* 
-.navbar button {
-    margin-left: 110px;
-} */
 
 
 .logo-container {

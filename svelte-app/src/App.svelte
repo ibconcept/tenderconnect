@@ -1,11 +1,13 @@
 <script>
-    import { onMount } from 'svelte';
-
+    import { onMount, onDestroy } from 'svelte';   
+   
+    // Application state variables: manages user login, tenders, selected tender, and UI visibility
     let isLoggedIn = true;
     let tenders = [];
     let selectedTender = null;
     let showPostTenderForm = false;
-    
+    let showMenu = false;  
+
     // Declare variables for the tender form
     let newTenderTitle = "";
     let newTenderDescription = "";
@@ -19,16 +21,74 @@
     let newTenderIdCard = ""; 
     let newTenderPosition = ""; 
     let newTenderTerms = ""; 
-    let showMenu = false; 
 
-    // Load tenders from Local Storage
+    // Load sample tenders from Local Storage
+    
     function loadTenders() {
-        const storedTenders = localStorage.getItem('tenders');
-        tenders = storedTenders ? JSON.parse(storedTenders) : [];
-    }
+    const storedTenders = localStorage.getItem('tenders');
+    tenders = storedTenders ? JSON.parse(storedTenders) : [
+        {
+            id: 1,
+            title: "Tender for School Supplies",
+            description: "Supply of educational materials for the upcoming term.",
+            institution: "ABC Primary School",
+            openDate: "2024-01-01",
+            closeDate: "2024-01-15",
+            contactPerson: "John Doe",
+            image: null
+        },
+        {
+            id: 2,
+            title: "Hospital Equipment Tender",
+            description: "Provision of medical equipment for XYZ Hospital.",
+            institution: "XYZ Hospital",
+            openDate: "2024-02-01",
+            closeDate: "2024-02-20",
+            contactPerson: "Jane Smith",
+            image: null
+        },
+        {
+            id: 3,
+            title: "Community Project Development",
+            description: "Construction of community center in downtown.",
+            institution: "City Council",
+            openDate: "2024-03-01",
+            closeDate: "2024-03-15",
+            contactPerson: "Alice Johnson",
+            image: null
+        },
+        {
+            id: 4,
+            title: "IT Services Tender",
+            description: "Provision of IT support services for local government.",
+            institution: "Local Government Office",
+            openDate: "2024-04-01",
+            closeDate: "2024-04-15",
+            contactPerson: "Bob Brown",
+            image: null
+        }
+    ];
+}
+
+
+// Lifecycle function to load tenders and set up event listeners
 
     onMount(() => {
         loadTenders();
+
+        function handleClickOutside(event) {
+            const menu = document.querySelector('.menu');
+            const hamburger = document.querySelector('.hamburger');
+            if (menu && !menu.contains(event.target) && !hamburger.contains(event.target)) {
+                showMenu = false;
+            }
+        }
+
+        document.addEventListener('click', handleClickOutside);
+
+        onDestroy(() => {
+            document.removeEventListener('click', handleClickOutside);
+        });
     });
 
     function viewTender(tenderId) {
@@ -72,6 +132,7 @@
         newTenderImage = null;
         newTenderInstitution = "";
         newTenderOpenDate = "";
+        newTenderCloseDate = "";
         newTenderContactPerson = "";
         newTenderCompanyRegCert = ""; 
         newTenderKraPin = ""; 
@@ -85,9 +146,12 @@
     }
 
     function toggleMenu() {
-        showMenu = !showMenu;
+        showMenu = !showMenu; // Toggle the menu visibility
     }
 </script>
+
+
+<!-- Main layout including header, navigation, and content area -->
 
 <header>
     <div class="logo-container">
@@ -100,26 +164,22 @@
         <h1>Tender Portal</h1>
         <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
     </div>
-   <nav>
-    <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
-        ☰
-    </button>
-    
-    {#if showMenu}
-        <ul class="menu">
-            <li><a href="/profile">My Profile</a></li>
-            <li><a href="/tenders">My Tenders</a></li>
-            <li><a href="/suppliers">My Suppliers</a></li>
-            <li><a href="/categories">Tender Categories</a></li>
-            <li><a href="/my-list-tenders">My List Tenders</a></li>
-            <li><a href="/my-live-tenders">My Live Tenders</a></li>
-        </ul>
-    {/if}
-</nav>
-
-<!-- Tenders Button with Accessibility Fix -->
-<a href="/post-tender" class="cta">Post a Tender</a>
-
+    <nav>
+        <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
+            ☰
+        </button>
+        
+        {#if showMenu}
+            <ul class="menu">
+                <li><a href="/profile">My Profile</a></li>
+                <li><a href="/tenders">My Tenders</a></li>
+                <li><a href="/suppliers">My Suppliers</a></li>
+                <li><a href="/categories">Tender Categories</a></li>
+                <li><a href="/my-list-tenders">My List Tenders</a></li>
+                <li><a href="/my-live-tenders">My Live Tenders</a></li>
+            </ul>
+        {/if}
+    </nav>
 </header>
 
 {#if !isLoggedIn}
@@ -192,16 +252,14 @@
         <h2>Apply for available Tenders</h2>
         <div id="tender-items">
             {#each tenders as tender}
-          
-            <div class="tender-item" on:click={() => viewTender(tender.id)}>
-                <h3>{tender.title}</h3>
-                <p>{tender.description}</p>
-                <p><strong>Institution:</strong> {tender.institution}</p>
-                {#if tender.image}
-                    <img src={tender.image} alt={tender.title} width="100" />
-                {/if}
-            </div>
-            
+                <button class="tender-item" on:click={() => viewTender(tender.id)} aria-label={`View tender: ${tender.title}`}>
+                    <h3>{tender.title}</h3>
+                    <p>{tender.description}</p>
+                    <p><strong>Institution:</strong> {tender.institution}</p>
+                    {#if tender.image}
+                        <img src={tender.image} alt={tender.title} width="100" />
+                    {/if}
+                </button>
             {/each}
         </div>
     </main>
@@ -209,5 +267,5 @@
 
 <!-- Call to Action Button -->
 <div class="cta">
-    <button on:click={() => showPostTenderForm = true}>Post a Tender</button>
+    <button on:click={() => showPostTenderForm = true}>Submit Tender</button>
 </div>
