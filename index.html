@@ -21,6 +21,7 @@
             font-family: 'Roboto', sans-serif;
             margin: 20px;
             margin-top: 0;
+            background-color: aliceblue;
             padding: 0;
             color: #333;
         }
@@ -76,6 +77,7 @@
             align-items: center;
             background: var(--light-gray);
         }
+
         .about img {
             width: 100%;
             max-width: 600px;
@@ -96,6 +98,15 @@
         .contact {
             background: var(--white);
         }
+
+
+        h3 {
+    font-size: xx-large;
+    font-weight: 900;
+    color: #4CAF50;
+     }
+     
+
         .container {
             padding: 20px;
             border-radius: 30px;
@@ -103,27 +114,142 @@
             margin-bottom: 10px;
         }
         
-        /* Media Queries for mobile optimization */
-        @media (max-width: 600px) {
-            .hero {
-                padding: 60px 10px;
-            }
-            .features, .testimonials, .about, .contact {
-                padding: 20px 10px;
-            }
-            .feature-card {
-                margin: 10px 0;
-            }
-            .social-icons {
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
+        .hamburger-menu {
+            display: none; /* Hidden by default */
         }
+
+        .phone-view  {
+            display: none;
+        }
+
+        /* Media Queries for mobile optimization */
+       
+        @media (max-width: 600px) {
+
+.phone-view {
+    display: initial;
+}
+
+body {
+    width: 100vw; /* Full viewport width */
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+}
+
+header {
+    display: flex; /* Use flexbox */
+    flex-direction: row; /* Horizontal layout */
+    align-items: center; /* Center items */
+    justify-content: space-between; /* Space items evenly */
+    padding: 10px; /* Padding around header */
+    background: var(--green); /* Background color */
+    color: var(--white); /* Text color */
+    width: 100%; /* Full width */
+    max-width: none; /* Reset max-width */
+    box-sizing: border-box; /* Include padding in width */
+    flex-wrap: wrap; /* Allow wrapping if necessary */
+}
+
+.logo {
+    width: 40px; /* Adjust logo size (slightly larger) */
+    margin-right: 10px; /* Space next to logo */
+}
+
+.hero {
+    padding: 40px 10px; /* Padding for hero section */
+    max-width: none; /* Reset max-width */
+    width: 100%; /* Full width */
+}
+
+.features, .testimonials, .about, .contact {
+    padding: 20px 10px; /* Padding for sections */
+    max-width: none; /* Reset max-width */
+    width: 100%; /* Full width */
+}
+
+.container {
+    display: none; /* Reset max-width */
+}
+
+.hamburger-menu {
+    display: none; /* Hidden by default */
+    flex-direction: column; /* Stack items vertically */
+    background: var(--green); /* Background color */
+    position: absolute; /* Position it absolutely */
+    top: 60px; /* Adjust position below the header */
+    right: 10px; /* Adjust right alignment */
+    padding: 10px; /* Padding around menu items */
+    border-radius: 5px; /* Rounded corners */
+  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.hamburger-menu.active {
+    display: flex; /* Show the menu when active */
+}
+
+.hamburger-icon {
+    cursor: pointer; /* Pointer cursor on hover */
+    position: absolute; /* Position it absolutely */
+    top: 10px; /* Adjust top position */
+    right: 10px; /* Align to right */
+}
+a {
+
+    color: orange;
+    margin: 3px;
+    border-bottom: #333 2px;
+}
+a:hover {
+    color: var(--green);
+}
+h1{
+    font-size: xx-large;
+    font-weight: 900;
+    color: #45a049;
+}
+
+
+p{
+    font-size: large;
+    font-weight: 200;
+     }
+     
+h3{
+    font-size: xx-large;
+    font-weight: 900;
+    color: #45a049;
+}
+
+
+img {
+
+    width: 100vw;
+}
+
+}
+
+
     </style>
 </head>
 <body>
     <header>
+
+<div class="phone-view">
+        <a href="https://tenderconnect.netlify.app/">
+            <img src="svelte-app/public/logo.PNG" alt="TenderConnect" class="logo"> 
+        </a>
+        <div class="hamburger-icon">
+            <i class="fas fa-bars"></i> <!-- Font Awesome icon for hamburger menu -->
+        </div>
+        <ul class="hamburger-menu">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
         <nav class="container">
             <div class="brand-logo">TenderConnect</div>
             <ul class="right">
@@ -136,6 +262,11 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
+        
+     
+         
+
+
     </header>
 
     <section class="hero">
@@ -203,5 +334,22 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const menu = document.querySelector('.hamburger-menu');
+    
+        hamburgerIcon.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+    
+        document.addEventListener('click', (event) => {
+            if (!menu.contains(event.target) && !hamburgerIcon.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
+
+
+
 </body>
 </html>
