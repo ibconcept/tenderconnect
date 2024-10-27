@@ -32,7 +32,7 @@ header {
     justify-content: space-between;
     padding: 20px;
     background-color: var(--green);
-    width: 90%;
+    width: auto;
     color: var(--white);
     border-bottom: 5px solid var(--orange);
     margin: 0 auto;
@@ -147,20 +147,30 @@ textarea {
 }
 
 @media (max-width: 600px) {
+     
     header {
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex;
+        flex-direction: row; /* Keep items in one line */
+        align-items: center; /* Center items vertically */
+        justify-content: space-between; /* Distribute space */
         padding: 10px;
+        width: 100%; /* Full width */
+        box-sizing: border-box;
     }
 
     header h1 {
-        margin: 5px 0;
-        text-align: left;
+        margin: 0; /* Remove margin for compactness */
+        font-size: 1.2em; /* Adjust size if necessary */
+    }
+
+    header img  {
+        margin-right: 10px; /* Space between logo and title */
     }
 
     .menu {
-        width: 90%;
-        padding: 15px;
+        width: auto; /* Adjust menu width */
+        padding: 0; /* Remove padding for compactness */
+        margin-left: 10px; /* Space from title */
     }
 
     #auth, #tender-list, #tender-detail, #post-tender-form {

@@ -253,7 +253,7 @@
 {:else}
     <main>
         <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
-        <h3 style="border: 2px orange dotted;">Apply for available Tenders</h3>
+        <h3 style="border: 2px orange dotted; width: 50%; margin: 0 auto; border-radius:5px ;">Apply for available Tenders</h3>
         <div id="tender-items">
             {#each tenders as tender}
                 <button class="tender-item" on:click={() => viewTender(tender.id)} aria-label={`View tender: ${tender.title}`}>
