@@ -1,6 +1,9 @@
 <script>
     import { onMount, onDestroy } from 'svelte';   
    
+
+
+    
     // Application state variables: manages user login, tenders, selected tender, and UI visibility
     let isLoggedIn = true;
     let tenders = [];
