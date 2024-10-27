@@ -3,7 +3,7 @@
    
 
 
-    
+
     // Application state variables: manages user login, tenders, selected tender, and UI visibility
     let isLoggedIn = true;
     let tenders = [];
@@ -163,9 +163,9 @@
         </a>
     </div>
     
-    <div class="site-info">
-        <h1>Tender Portal</h1>
-        <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
+    <div>
+        <h1>TenderConnect</h1>
+       
     </div>
     <nav>
         <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
@@ -228,7 +228,7 @@
             <textarea id="terms" bind:value={newTenderTerms} required></textarea>
             
             <button type="submit">Submit Tender</button>
-            <button type="button" on:click={() => showPostTenderForm = false}>Cancel</button>
+            <button type="button" on:click={() => showPostTenderForm = false}>Back</button>
         </form>
     </div>
 {:else if selectedTender}
@@ -252,7 +252,8 @@
     </div>
 {:else}
     <main>
-        <h2>Apply for available Tenders</h2>
+        <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
+        <h3 style="border: 2px orange dotted;">Apply for available Tenders</h3>
         <div id="tender-items">
             {#each tenders as tender}
                 <button class="tender-item" on:click={() => viewTender(tender.id)} aria-label={`View tender: ${tender.title}`}>
@@ -268,7 +269,10 @@
     </main>
 {/if}
 
+
+
 <!-- Call to Action Button -->
+
 <div class="cta">
     <button on:click={() => showPostTenderForm = true}>Submit Tender</button>
 </div>
