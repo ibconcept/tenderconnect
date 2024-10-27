@@ -1,18 +1,22 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';   
-   
+    import { onMount, onDestroy } from 'svelte';
+    import { Router, Route, Link } from 'svelte-routing';
+    import ListTenders from './routes/ListTenders.svelte';
+    import LiveTenders from './routes/LiveTenders.svelte';
+    import Profile from './routes/Profile.svelte';
+    import Suppliers from './routes/Suppliers.svelte';
+    import TenderCategories from './routes/TenderCategories.svelte';
+    import Tenders from './routes/Tenders.svelte';
 
-
-
-    // Application state variables: manages user login, tenders, selected tender, and UI visibility
+    // Application state variables
     let isLoggedIn = true;
     let tenders = [];
     let selectedTender = null;
     let showPostTenderForm = false;
-    let showMenu = false;  
+    let showMenu = false;
 
-    // Declare variables for the tender form
-    let newTenderTitle = "";
+// Declare variables for the tender form
+let newTenderTitle = "";
     let newTenderDescription = "";
     let newTenderImage = null;
     let newTenderInstitution = ""; 
@@ -25,56 +29,53 @@
     let newTenderPosition = ""; 
     let newTenderTerms = ""; 
 
+
     // Load sample tenders from Local Storage
-    
     function loadTenders() {
-    const storedTenders = localStorage.getItem('tenders');
-    tenders = storedTenders ? JSON.parse(storedTenders) : [
-        {
-            id: 1,
-            title: "Tender for School Supplies",
-            description: "Supply of educational materials for the upcoming term.",
-            institution: "ABC Primary School",
-            openDate: "2024-01-01",
-            closeDate: "2024-01-15",
-            contactPerson: "John Doe",
-            image: null
-        },
-        {
-            id: 2,
-            title: "Hospital Equipment Tender",
-            description: "Provision of medical equipment for XYZ Hospital.",
-            institution: "XYZ Hospital",
-            openDate: "2024-02-01",
-            closeDate: "2024-02-20",
-            contactPerson: "Jane Smith",
-            image: null
-        },
-        {
-            id: 3,
-            title: "Community Project Development",
-            description: "Construction of community center in downtown.",
-            institution: "City Council",
-            openDate: "2024-03-01",
-            closeDate: "2024-03-15",
-            contactPerson: "Alice Johnson",
-            image: null
-        },
-        {
-            id: 4,
-            title: "IT Services Tender",
-            description: "Provision of IT support services for local government.",
-            institution: "Local Government Office",
-            openDate: "2024-04-01",
-            closeDate: "2024-04-15",
-            contactPerson: "Bob Brown",
-            image: null
-        }
-    ];
-}
-
-
-// Lifecycle function to load tenders and set up event listeners
+        const storedTenders = localStorage.getItem('tenders');
+        tenders = storedTenders ? JSON.parse(storedTenders) : [
+            {
+                id: 1,
+                title: "Tender for School Supplies",
+                description: "Supply of educational materials for the upcoming term.",
+                institution: "ABC Primary School",
+                openDate: "2024-01-01",
+                closeDate: "2024-01-15",
+                contactPerson: "John Doe",
+                image: null
+            },
+            {
+                id: 2,
+                title: "Hospital Equipment Tender",
+                description: "Provision of medical equipment for XYZ Hospital.",
+                institution: "XYZ Hospital",
+                openDate: "2024-02-01",
+                closeDate: "2024-02-20",
+                contactPerson: "Jane Smith",
+                image: null
+            },
+            {
+                id: 3,
+                title: "Community Project Development",
+                description: "Construction of community center in downtown.",
+                institution: "City Council",
+                openDate: "2024-03-01",
+                closeDate: "2024-03-15",
+                contactPerson: "Alice Johnson",
+                image: null
+            },
+            {
+                id: 4,
+                title: "IT Services Tender",
+                description: "Provision of IT support services for local government.",
+                institution: "Local Government Office",
+                openDate: "2024-04-01",
+                closeDate: "2024-04-15",
+                contactPerson: "Bob Brown",
+                image: null
+            }
+        ];
+    }
 
     onMount(() => {
         loadTenders();
@@ -88,11 +89,14 @@
         }
 
         document.addEventListener('click', handleClickOutside);
-
         onDestroy(() => {
             document.removeEventListener('click', handleClickOutside);
         });
     });
+
+    function toggleMenu() {
+        showMenu = !showMenu; // Toggle the menu visibility
+    }
 
     function viewTender(tenderId) {
         selectedTender = tenders.find(t => t.id === tenderId);
@@ -147,14 +151,7 @@
     function handleImageUpload(event) {
         newTenderImage = event.target.files[0];
     }
-
-    function toggleMenu() {
-        showMenu = !showMenu; // Toggle the menu visibility
-    }
 </script>
-
-
-<!-- Main layout including header, navigation, and content area -->
 
 <header>
     <div class="logo-container">
@@ -162,28 +159,38 @@
             <img src="../logo.PNG" alt="Tender Portal Logo" />
         </a>
     </div>
-    
-    <div>
-        <h1>TenderConnect</h1>
-       
-    </div>
+    <h1>TenderConnect</h1>
+    <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
+        ☰
+    </button>
+
+</header>
+
+<Router>
     <nav>
-        <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
-            ☰
-        </button>
-        
+
         {#if showMenu}
             <ul class="menu">
-                <li><a href="/profile">My Profile</a></li>
-                <li><a href="/tenders">My Tenders</a></li>
-                <li><a href="/suppliers">My Suppliers</a></li>
-                <li><a href="/categories">Tender Categories</a></li>
-                <li><a href="/my-list-tenders">My List Tenders</a></li>
-                <li><a href="/my-live-tenders">My Live Tenders</a></li>
+                <li><Link to="/profile">Profile</Link></li>
+                <li><Link to="/list-tenders">List Tenders</Link></li>
+                <li><Link to="/live-tenders">Live Tenders</Link></li>
+                <li><Link to="/suppliers">Suppliers</Link></li>
+                <li><Link to="/tender-categories">Tender Categories</Link></li>
+                <li><Link to="/">Tenders</Link></li>
             </ul>
         {/if}
     </nav>
-</header>
+
+    <!-- Only render the current route's component -->
+    <main>
+        <Route path="/profile" component={Profile} />
+        <Route path="/list-tenders" component={ListTenders} />
+        <Route path="/live-tenders" component={LiveTenders} />
+        <Route path="/suppliers" component={Suppliers} />
+        <Route path="/tender-categories" component={TenderCategories} />
+        <Route path="/" component={Tenders} />
+    </main>
+</Router>
 
 {#if !isLoggedIn}
     <div id="auth">
@@ -251,9 +258,10 @@
         <button on:click={() => selectedTender = null}>Back to Tenders</button>
     </div>
 {:else}
-    <main>
+
+     
         <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
-        <h3 style="border: 2px orange dotted; width: 50%; margin: 0 auto; border-radius:5px ;">Apply for available Tenders</h3>
+        <h3 style="border: 2px orange dotted; width: 50%; margin: 0 auto; border-radius:5px;">Apply for available Tenders</h3>
         <div id="tender-items">
             {#each tenders as tender}
                 <button class="tender-item" on:click={() => viewTender(tender.id)} aria-label={`View tender: ${tender.title}`}>
@@ -266,13 +274,10 @@
                 </button>
             {/each}
         </div>
-    </main>
+     
 {/if}
 
-
-
 <!-- Call to Action Button -->
-
 <div class="cta">
     <button on:click={() => showPostTenderForm = true}>Submit Tender</button>
 </div>
