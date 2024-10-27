@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style>
         :root {
@@ -20,36 +19,35 @@
         }
         body {
             font-family: 'Roboto', sans-serif;
-            margin: 0;
+            margin: 20px;
+            margin-top: 0;
             padding: 0;
             color: #333;
         }
         header {
-            padding-bottom: 20px;
+            padding-bottom: 10px;
             background: var(--green);
             color: var(--white);
-           
         }
         nav a {
             color: var(--white);
-             
         }
         .hero {
             text-align: center;
-            padding: 100px 20px;
+            padding: 80px 20px;
             background-image: url('hero-image.jpg'); /* Replace with your image */
             background-size: cover;
             color: var(--white);
         }
         .features, .testimonials, .about, .contact {
-            padding: 60px 20px;
+            padding: 40px 20px;
             text-align: center;
         }
         .feature-card {
             padding: 20px;
             border: 1px solid var(--orange);
             border-radius: 8px;
-            margin: 20px;
+            margin: 10px;
             transition: transform 0.3s;
             background: var(--white);
         }
@@ -59,12 +57,12 @@
         footer {
             background: var(--dark-green);
             color: var(--white);
-            padding: 20px 0;
+            padding: 15px 0;
             border-radius: 30px;
             text-align: center;
         }
         .testimonial {
-            margin: 20px 0;
+            margin: 10px 0;
             font-style: italic;
         }
         .social-icons i {
@@ -74,58 +72,64 @@
         }
         .about {
             display: flex;
-         justify-content: center; align-items: center; 
-
+            flex-direction: column;
+            align-items: center;
             background: var(--light-gray);
         }
         .about img {
             width: 100%;
             max-width: 600px;
-            border-radius: 80px;
-            flex: 1;
-
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
-
-        .about h2 p {
-
-flex: 2;
-display: inline;
+        .about h2 {
+            margin: 10px 0;
         }
-
-.logo {
-
-    width: 50px;
-}
-
-
+        .about p {
+            margin: 5px 0;
+            max-width: 600px;
+            text-align: center;
+        }
+        .logo {
+            width: 50px;
+        }
         .contact {
             background: var(--white);
         }
-        .container
-        {
-            padding: 50px;
+        .container {
+            padding: 20px;
             border-radius: 30px;
             background-color: initial;
-            display: intial;
-            position: intial;
             margin-bottom: 10px;
         }
         
-        
-        
-        </style>
+        /* Media Queries for mobile optimization */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 60px 10px;
+            }
+            .features, .testimonials, .about, .contact {
+                padding: 20px 10px;
+            }
+            .feature-card {
+                margin: 10px 0;
+            }
+            .social-icons {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="container">
-            <div class="brand-logo">
-              
-                TenderConnect</div>
+            <div class="brand-logo">TenderConnect</div>
             <ul class="right">
-                <a href="https://tenderconnect.netlify.app/" class="btn"> 
-
-        <img src="svelte-app/public/logo.PNG" alt=" tender" class="logo"> </a>
-
+                <a href="https://tenderconnect.netlify.app/" class="btn">
+                    <img src="svelte-app/public/logo.PNG" alt=" tender" class="logo"> 
+                </a>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
@@ -161,13 +165,13 @@ display: inline;
                     <p>Upload key tender-related documents securely.</p>
                 </div>
             </div>
-            <a href="https://tenderconnect.netlify.app/" class="btn">DOWDLOAD DEMO-APP NOW!!</a>
+            <a href="https://tenderconnect.netlify.app/" class="btn">DOWNLOAD DEMO-APP NOW!!</a>
         </div>
     </section>
 
     <section class="about" id="about">
-      
-        <img src="about-image.jpg" alt="About TenderConnect">     <h2 style="display: inline;">About TenderConnect</h2>
+        <img src="about-image.jpg" alt="About TenderConnect">
+        <h2>About TenderConnect</h2>
         <p>TenderConnect is designed to enhance transparency and reduce bureaucracy in the tender management process. Our platform allows institutions to post tenders and suppliers to apply seamlessly, ensuring secure user authentication and document handling.</p>
         <p>With a robust backend powered by PostgreSQL and Express, TenderConnect ensures fast and reliable service, making tender management easy and efficient for all parties involved.</p>
     </section>
@@ -182,7 +186,6 @@ display: inline;
         </div>
     </section>
 
-
     <section class="contact" id="contact">
         <h2>Contact Us</h2>
         <p>If you have any questions or would like to get started, feel free to reach out!</p>
@@ -194,9 +197,7 @@ display: inline;
             <a href="https://www.instagram.com/YourProfile" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
     </section>
-    
-    
-    
+
     <footer>
         <p>&copy; 2024 TenderConnect. All Rights Reserved.</p>
     </footer>
@@ -204,4 +205,3 @@ display: inline;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
-

@@ -1,6 +1,4 @@
 <script>
-    export let tenders2; // Import the 'tenders' prop
-
     import { onMount } from 'svelte';
 
     let isLoggedIn = true;
@@ -12,16 +10,16 @@
     let newTenderTitle = "";
     let newTenderDescription = "";
     let newTenderImage = null;
-    let newTenderInstitution = ""; // This variable was missing
+    let newTenderInstitution = ""; 
     let newTenderOpenDate = "";
     let newTenderCloseDate = "";
     let newTenderContactPerson = "";
-    let newTenderCompanyRegCert = ""; // New input for company registration certificate
-    let newTenderKraPin = ""; // New input for KRA PIN
-    let newTenderIdCard = ""; // New input for ID card
-    let newTenderPosition = ""; // New input for person's position
-    let newTenderTerms = ""; // New input for tender agreement terms
-    let showMenu = false; // To toggle hamburger menu
+    let newTenderCompanyRegCert = ""; 
+    let newTenderKraPin = ""; 
+    let newTenderIdCard = ""; 
+    let newTenderPosition = ""; 
+    let newTenderTerms = ""; 
+    let showMenu = false; 
 
     // Load tenders from Local Storage
     function loadTenders() {
@@ -40,13 +38,13 @@
     async function submitQuote(event) {
         event.preventDefault();
         alert("Quote submitted for tender.");
-        selectedTender = null; // Return to tender list
+        selectedTender = null; 
     }
 
     async function submitTender(event) {
         event.preventDefault();
         const newTender = {
-            id: Date.now(), // Use timestamp as a unique ID
+            id: Date.now(),
             title: newTenderTitle,
             description: newTenderDescription,
             image: newTenderImage,
@@ -54,46 +52,38 @@
             openDate: newTenderOpenDate,
             closeDate: newTenderCloseDate,
             contactPerson: newTenderContactPerson,
-            companyRegCert: newTenderCompanyRegCert, // New input for company registration certificate
-            kraPin: newTenderKraPin, // New input for KRA PIN
-            idCard: newTenderIdCard, // New input for ID card
-            position: newTenderPosition, // New input for person's position
-            terms: newTenderTerms // New input for tender agreement terms
+            companyRegCert: newTenderCompanyRegCert,
+            kraPin: newTenderKraPin,
+            idCard: newTenderIdCard,
+            position: newTenderPosition,
+            terms: newTenderTerms
         };
 
-        // Add the new tender to the existing array
         tenders.push(newTender);
-        // Save the updated tenders array to Local Storage
         localStorage.setItem('tenders', JSON.stringify(tenders));
-
-        // Reset fields and hide the form after submission
         showPostTenderForm = false;
         resetTenderForm();
-        loadTenders(); // Refresh the tender list
+        loadTenders();
     }
 
-    // Reset the tender form fields
     function resetTenderForm() {
         newTenderTitle = "";
         newTenderDescription = "";
         newTenderImage = null;
         newTenderInstitution = "";
         newTenderOpenDate = "";
-        newTenderCloseDate = "";
         newTenderContactPerson = "";
-        newTenderCompanyRegCert = ""; // Reset new input
-        newTenderKraPin = ""; // Reset new input
-        newTenderIdCard = ""; // Reset new input
-        newTenderPosition = ""; // Reset new input
-        newTenderTerms = ""; // Reset new input
+        newTenderCompanyRegCert = ""; 
+        newTenderKraPin = ""; 
+        newTenderIdCard = ""; 
+        newTenderPosition = ""; 
+        newTenderTerms = ""; 
     }
 
-    // Handle file input change
     function handleImageUpload(event) {
         newTenderImage = event.target.files[0];
     }
 
-    // Toggle hamburger menu visibility
     function toggleMenu() {
         showMenu = !showMenu;
     }
@@ -106,26 +96,30 @@
         </a>
     </div>
     
-    <div class="site-info" >
+    <div class="site-info">
         <h1>Tender Portal</h1>
         <h2>Your gateway to opportunities for schools, hospitals, and community projects.</h2>
     </div>
-    <nav>
-        <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
-            ☰
-        </button>
-        
-        {#if showMenu}
-            <ul class="menu">
-                <li>My Profile</li>
-                <li>My Tenders</li>
-                <li>My Suppliers</li>
-                <li>Tender Categories</li>
-                <li><button on:click={() => showPostTenderForm = true}>My List Tenders</button></li>
-                <li><button on:click={() => showPostTenderForm = true}>My Live Tenders</button></li>
-            </ul>
-        {/if}
-    </nav>
+   <nav>
+    <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
+        ☰
+    </button>
+    
+    {#if showMenu}
+        <ul class="menu">
+            <li><a href="/profile">My Profile</a></li>
+            <li><a href="/tenders">My Tenders</a></li>
+            <li><a href="/suppliers">My Suppliers</a></li>
+            <li><a href="/categories">Tender Categories</a></li>
+            <li><a href="/my-list-tenders">My List Tenders</a></li>
+            <li><a href="/my-live-tenders">My Live Tenders</a></li>
+        </ul>
+    {/if}
+</nav>
+
+<!-- Tenders Button with Accessibility Fix -->
+<a href="/post-tender" class="cta">Post a Tender</a>
+
 </header>
 
 {#if !isLoggedIn}
@@ -195,17 +189,19 @@
     </div>
 {:else}
     <main>
-        <h2>Available Tenders</h2>
+        <h2>Apply for available Tenders</h2>
         <div id="tender-items">
             {#each tenders as tender}
-                <div class="tender-item" on:click={() => viewTender(tender.id)}>
-                    <h3>{tender.title}</h3>
-                    <p>{tender.description}</p>
-                    <p><strong>Institution:</strong> {tender.institution}</p>
-                    {#if tender.image}
-                        <img src={tender.image} alt={tender.title} width="100" />
-                    {/if}
-                </div>
+          
+            <div class="tender-item" on:click={() => viewTender(tender.id)}>
+                <h3>{tender.title}</h3>
+                <p>{tender.description}</p>
+                <p><strong>Institution:</strong> {tender.institution}</p>
+                {#if tender.image}
+                    <img src={tender.image} alt={tender.title} width="100" />
+                {/if}
+            </div>
+            
             {/each}
         </div>
     </main>
@@ -215,4 +211,3 @@
 <div class="cta">
     <button on:click={() => showPostTenderForm = true}>Post a Tender</button>
 </div>
- 
