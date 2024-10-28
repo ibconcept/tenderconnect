@@ -1,6 +1,6 @@
 # TenderConnect
 
-![TenderConnect Logo](public/logo.PNG) <!-- Adjust the logo path as needed -->
+![TenderConnect Logo](logo.PNG) <!-- Adjust the logo path as needed -->
 
 **TenderConnect** is a web-based platform designed to streamline the tendering process for businesses, organizations, and suppliers. It enables transparency and reduces bureaucracy by allowing institutions to post tenders and suppliers to apply securely.
 
