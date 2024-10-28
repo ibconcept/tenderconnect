@@ -1,6 +1,6 @@
 # TenderConnect
 
-![TenderConnect Logo](public/logo.png) <!-- Adjust the logo path as needed -->
+![TenderConnect Logo](public/logo.PNG) <!-- Adjust the logo path as needed -->
 
 **TenderConnect** is a web-based platform designed to streamline the tendering process for businesses, organizations, and suppliers. It enables transparency and reduces bureaucracy by allowing institutions to post tenders and suppliers to apply securely.
 
@@ -12,7 +12,8 @@
 - **Backend Powered by PostgreSQL and Express**: Stores tender data and handles requests.
 
 ## Live Demo
-👉 [TenderConnect](https://example.com) <!-- Add your live demo link -->
+👉 [TenderConnect](https://tenderconnect.netlify.app/) <!-- Add your live demo link -->
+👉 [TenderConnect](https://ibconcept.github.io/tenderconnect/) <!-- Add your live demo link -->
 
 ## Tech Stack
 - **Frontend**: Svelte  
@@ -41,3 +42,8 @@ createdb tenderconnect
 # OAUTH_CLIENT_ID=your-oauth-client-id
 # OAUTH_CLIENT_SECRET=your-oauth-client-secret
 npm run dev
+
+```
+
+## LANDING PAGE
+👉 [TenderConnect](https://ibconcept.github.io/tenderconnect/) <!-- Add your live demo link -->

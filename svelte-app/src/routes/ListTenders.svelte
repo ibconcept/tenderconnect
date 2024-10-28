@@ -1,4 +1,7 @@
 <script>
+
+// import tenders that one has applied to here ... also add crud features
+
     let tenders = [
         { id: 1, title: "Supply of Desks", openDate: "2024-10-15", closeDate: "2024-11-15" },
         { id: 2, title: "School Renovation", openDate: "2024-09-10", closeDate: "2024-12-01" }
