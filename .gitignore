@@ -1,7 +1,6 @@
 
 others
-
-
+node_modules/
 node-modules
 package.json
 
