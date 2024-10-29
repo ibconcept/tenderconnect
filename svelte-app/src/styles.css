@@ -17,6 +17,8 @@ body {
 
 h2 {
     color: var(--orange);
+    font-size: medium;
+    margin-right: 100px;
 }
 
 
@@ -99,7 +101,7 @@ header h1 {
     background-color: var(--dark-green);
 }
 
-#auth, #tender-list, #tender-detail, #post-tender-form {
+ #tender-list, #tender-detail, #post-tender-form {
     margin: 50px;
     padding: 15px;
     border-radius: 5px;
@@ -156,6 +158,20 @@ textarea {
         padding: 10px;
         width: 100%; /* Full width */
         box-sizing: border-box;
+    }
+
+
+    #auth{
+
+        display: flex;
+        flex-direction: row; /* Keep items in one line */
+        align-items: center; /* Center items vertically */
+        justify-content: space-between; /* Distribute space */
+        padding: 30px;
+        width: 80%; 
+        border: #4CAF50 3px dotted;
+        border-radius: 10px;
+
     }
 
     header h1 {

@@ -1,11 +1,12 @@
+// main.js
 import App from './App.svelte';
 import './styles.css';
+import './netlifyIdentity.js';
 
 const app = new App({
-    target: document.body,
+    target: document.getElementById('app'),
     props: {
-        isLoggedIn: false,
-        tenders: [],
+        tenders: [], // Pass any initial tenders if needed
         newTenderTitle: "",
         newTenderDescription: "",
         newTenderInstitution: "",

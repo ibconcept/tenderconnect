@@ -1,6 +1,10 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import { Router, Route, Link } from "svelte-routing";
+    import { Router, Route, Link, navigate } from "svelte-routing";
+    import { userStore } from "./userStore"; // Import the user store
+    import { initNetlifyIdentity, login, logout } from "./netlifyIdentity"; // Import Netlify Identity functions
+    import { signup } from './netlifyIdentity';
+    import Auth from "./Auth.svelte"; // Import the Auth component
     import ListTenders from "./routes/ListTenders.svelte";
     import LiveTenders from "./routes/LiveTenders.svelte";
     import Profile from "./routes/Profile.svelte";
@@ -9,11 +13,14 @@
     import Tenders from "./routes/Tenders.svelte";
 
     // Application state variables
-    let isLoggedIn = true;
+    let isLoggedIn = false;
+    let user;
+
     let tenders = [];
     let selectedTender = null;
     let showPostTenderForm = false;
     let showMenu = false;
+
 
     // Declare variables for the tender form
     let newTenderTitle = "";
@@ -29,7 +36,9 @@
     let newTenderPosition = "";
     let newTenderTerms = "";
 
-    // Load sample tenders from Local Storage
+
+
+    // Load sample tenders from Local Storage or a default list
     function loadTenders() {
         const storedTenders = localStorage.getItem("tenders");
         tenders = storedTenders
@@ -84,6 +93,13 @@
 
     onMount(() => {
         loadTenders();
+        initNetlifyIdentity(userStore, navigate); // Initialize Netlify Identity
+
+        // Subscribe to user store to check login state
+        userStore.subscribe((value) => {
+            user = value;
+            isLoggedIn = !!user; // Update isLoggedIn based on user presence
+        });
 
         function handleClickOutside(event) {
             const menu = document.querySelector(".menu");
@@ -111,59 +127,49 @@
         selectedTender = tenders.find((t) => t.id === tenderId);
     }
 
-    async function submitQuote(event) {
+    function hideMenu() {
+        showMenu = false; // Hides the menu
+    }
+
+    function requireLogin(route) {
+        if (!isLoggedIn) {
+            alert("Please log in to access this page.");
+        } else {
+            navigate(route);
+        }
+    }
+
+        async function submitTender(event) {
+    event.preventDefault();
+
+    const newTender = {
+        id: Date.now(),
+        title: newTenderTitle,
+        description: newTenderDescription,
+        image: newTenderImage,
+        institution: newTenderInstitution,
+        openDate: newTenderOpenDate,
+        closeDate: newTenderCloseDate,
+        contactPerson: newTenderContactPerson,
+        companyRegCert: newTenderCompanyRegCert,
+        kraPin: newTenderKraPin,
+        idCard: newTenderIdCard,
+        position: newTenderPosition,
+        terms: newTenderTerms,
+    };    
+   }
+
+   async function submitQuote(event) {
         event.preventDefault();
         alert("Quote submitted for tender.");
         selectedTender = null;
     }
 
-    async function submitTender(event) {
-        event.preventDefault();
-        const newTender = {
-            id: Date.now(),
-            title: newTenderTitle,
-            description: newTenderDescription,
-            image: newTenderImage,
-            institution: newTenderInstitution,
-            openDate: newTenderOpenDate,
-            closeDate: newTenderCloseDate,
-            contactPerson: newTenderContactPerson,
-            companyRegCert: newTenderCompanyRegCert,
-            kraPin: newTenderKraPin,
-            idCard: newTenderIdCard,
-            position: newTenderPosition,
-            terms: newTenderTerms,
-        };
+   
 
-        tenders.push(newTender);
-        localStorage.setItem("tenders", JSON.stringify(tenders));
-        showPostTenderForm = false;
-        resetTenderForm();
-        loadTenders();
-    }
 
-    function resetTenderForm() {
-        newTenderTitle = "";
-        newTenderDescription = "";
-        newTenderImage = null;
-        newTenderInstitution = "";
-        newTenderOpenDate = "";
-        newTenderCloseDate = "";
-        newTenderContactPerson = "";
-        newTenderCompanyRegCert = "";
-        newTenderKraPin = "";
-        newTenderIdCard = "";
-        newTenderPosition = "";
-        newTenderTerms = "";
-    }
 
-    function handleImageUpload(event) {
-        newTenderImage = event.target.files[0];
-    }
 
-    function hideMenu() {
-        showMenu = false; // Hides the menu
-    }
 </script>
 
 <header>
@@ -173,41 +179,66 @@
         </a>
     </div>
     <h1>TenderConnect</h1>
-    <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu">
-        ☰
-    </button>
+    <h2>
+        Your gateway to opportunities for schools, hospitals, and community
+        projects.
+    </h2>
+
+    <button class="hamburger" on:click={toggleMenu} aria-label="Toggle menu"
+        >☰</button
+    >
 </header>
 
 <Router>
     <nav>
         {#if showMenu}
             <ul class="menu">
-                <li><Link to="/profile" on:click={hideMenu}>Profile</Link></li>
                 <li>
-                    <Link to="/list-tenders" on:click={hideMenu}
+                    <Link
+                        to="/profile"
+                        on:click={() => requireLogin("/profile")}>Profile</Link
+                    >
+                </li>
+                <li>
+                    <Link
+                        to="/list-tenders"
+                        on:click={() => requireLogin("/list-tenders")}
                         >List Tenders</Link
                     >
                 </li>
                 <li>
-                    <Link to="/live-tenders" on:click={hideMenu}
+                    <Link
+                        to="/live-tenders"
+                        on:click={() => requireLogin("/live-tenders")}
                         >Live Tenders</Link
                     >
                 </li>
                 <li>
-                    <Link to="/suppliers" on:click={hideMenu}>Suppliers</Link>
+                    <Link
+                        to="/suppliers"
+                        on:click={() => requireLogin("/suppliers")}
+                        >Suppliers</Link
+                    >
                 </li>
                 <li>
-                    <Link to="/tender-categories" on:click={hideMenu}
+                    <Link
+                        to="/tender-categories"
+                        on:click={() => requireLogin("/tender-categories")}
                         >Tender Categories</Link
                     >
                 </li>
                 <li><Link to="/" on:click={hideMenu}>Tenders</Link></li>
+                <li>
+                    {#if isLoggedIn}
+  <button on:click={logout}>Logout</button>
+{/if}
+                </li>
             </ul>
         {/if}
     </nav>
 
-    <!-- Only render the current route's component -->
     <main>
+        <Route path="/auth" component={Auth} />
         <Route path="/profile" component={Profile} />
         <Route path="/list-tenders" component={ListTenders} />
         <Route path="/live-tenders" component={LiveTenders} />
@@ -217,12 +248,18 @@
     </main>
 </Router>
 
+
 {#if !isLoggedIn}
     <div id="auth">
-        <h2>Login with OAuth</h2>
-        <button on:click={() => (isLoggedIn = true)}>Login</button>
+        <h1>Login to join</h1>
+        <button on:click={login}>Login</button>
+        <button on:click={signup}>Sign Up</button>
     </div>
+
+
 {:else if showPostTenderForm}
+    <!-- Tender form here -->
+
     <div id="post-tender-form">
         <h3>Upload a New Tender</h3>
         <form on:submit={submitTender}>
@@ -318,6 +355,8 @@
         </form>
     </div>
 {:else if selectedTender}
+    <!-- Tender detail view here -->
+
     <div id="tender-detail">
         <h2>{selectedTender.title} Details</h2>
         <p><strong>Institution:</strong> {selectedTender.institution}</p>
@@ -342,10 +381,7 @@
         >
     </div>
 {:else}
-    <h2>
-        Your gateway to opportunities for schools, hospitals, and community
-        projects.
-    </h2>
+    
     <h3
         style="border: 2px orange dotted; width: 50%; margin: 0 auto; border-radius:5px;"
     >
@@ -369,7 +405,12 @@
     </div>
 {/if}
 
-<!-- Call to Action Button -->
-<div class="cta">
-    <button on:click={() => (showPostTenderForm = true)}>Submit Tender</button>
-</div>
+
+
+
+
+{#if isLoggedIn}
+    <div class="cta">
+        <button on:click={() => (showPostTenderForm = true)}>Submit Tender</button>
+    </div>
+{/if}

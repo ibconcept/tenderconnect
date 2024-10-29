@@ -1,22 +1,45 @@
+<!-- Profile.svelte -->
 <script>
-    let profile = {
-        name: "John Doe",
-        email: "john@example.com",
-        organization: "Example Org",
-        role: "Project Manager",
-    };
+    import { onDestroy } from 'svelte';
+    import { userStore, userTenders } from '../userStore'; // Import the stores
 
-    // Future enhancement: Fetch the profile data from an API or backend
+    let user;
+    let tenders = [];
+
+    // Subscribe to userStore
+    const unsubscribeUser = userStore.subscribe(value => {
+        user = value; // Get user data
+    });
+
+    // Subscribe to userTenders
+    const unsubscribeTenders = userTenders.subscribe(value => {
+        tenders = value; // Get user's tenders
+    });
+
+    onDestroy(() => {
+        unsubscribeUser();
+        unsubscribeTenders();
+    });
 </script>
 
 <section>
     <h1>My Profile</h1>
     <div class="profile-details">
-        <p><strong>Name:</strong> {profile.name}</p>
-        <p><strong>Email:</strong> {profile.email}</p>
-        <p><strong>Organization:</strong> {profile.organization}</p>
-        <p><strong>Role:</strong> {profile.role}</p>
+        {#if user}
+            <p><strong>Name:</strong> {user.user_metadata.full_name}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Organization:</strong> {user.user_metadata.organization || 'N/A'}</p>
+            <p><strong>Role:</strong> {user.user_metadata.role || 'N/A'}</p>
+        {:else}
+            <p>Please log in to see your profile.</p>
+        {/if}
     </div>
+    <h2>Your Submissions</h2>
+    <ul>
+        {#each tenders as tender}
+            <li>{tender.title}</li>
+        {/each}
+    </ul>
     <button on:click={() => alert('Edit Profile feature coming soon!')}>Edit Profile</button>
 </section>
 
@@ -33,4 +56,3 @@
         margin-top: 1rem;
     }
 </style>
-
